@@ -1,0 +1,32 @@
+.container {
+	max-width: 600px;
+	padding: 15px 15px;
+	background-color: #ccc;
+	border: 1px solid #9f9e9e;
+	border-radius: 10px;
+}
+
+label {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+.add {
+	margin-bottom: 10px;
+	padding: 5px 10px;
+	background-color: #fff;
+	border-bottom: 1px solid #c5bdbd;
+	border-radius: 5px;
+}
+textarea {
+	min-height: 100px;
+}
+.send {
+	padding: 10px 25px;
+	background-color: transparent;
+	border: 1px solid #000;
+	background-color: #ed961c;
+	border-radius: 10px;
+	cursor: pointer;
+}
