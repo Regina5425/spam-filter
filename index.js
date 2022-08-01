@@ -5,14 +5,25 @@ const comments = [];
 button.addEventListener('click', addComment);
 
 function addComment() {
-	comments.push(comment.value);
+	if(comment.value !== '') {
+		comments.push(comment.value);
+	}
+	
 	comment.value = '';
-	console.log(comments);
 
 	let addedComment = '';
-	for(let comm of comments) {
-		addedComment += `<div class="add">${comm}</div>`;
+	for (let comm of comments) {
+		let checked = checkSpam(comm);
+		addedComment += `<div class="add">${checked}</div>`;
 	}
 
 	document.querySelector('.added-comment').innerHTML = addedComment;
+}
+
+function checkSpam(str) {
+	if (str.includes('xxx')) {
+		return str.replaceAll('xxx', '***');
+	} else {
+		return str;
+	}
 }
