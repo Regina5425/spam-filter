@@ -12,7 +12,7 @@ label {
 	margin-bottom: 20px;
 }
 
-.add {
+.comment {
 	margin-bottom: 10px;
 	padding: 5px 10px;
 	background-color: #fff;
@@ -28,5 +28,15 @@ textarea {
 	border: 1px solid #000;
 	background-color: #ed961c;
 	border-radius: 10px;
+	cursor: pointer;
+}
+
+.del__btn {
+	margin-left: 15px;
+	padding: 5px 8px;
+	background-color: transparent;
+	border: 1px solid #000;
+	background-color: #ed961c;
+	border-radius: 5px;
 	cursor: pointer;
 }

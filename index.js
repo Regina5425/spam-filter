@@ -1,29 +1,44 @@
-const comment = document.querySelector('textarea');
-const button = document.querySelector('.send');
-const comments = [];
+const button = document.querySelector('button');
+const comments = document.querySelector('.comments');
+const textarea = document.querySelector('textarea');
 
-button.addEventListener('click', addComment);
+let array = [];
 
-function addComment() {
-	if(comment.value !== '') {
-		comments.push(comment.value);
-	}
-	
-	comment.value = '';
+button.addEventListener('click', () => {
+	let text = textarea.value;
+	textarea.value = '';
 
-	let addedComment = '';
-	for (let comm of comments) {
-		let checked = checkSpam(comm);
-		addedComment += `<div class="add">${checked}</div>`;
-	}
+	array.push(text);
 
-	document.querySelector('.added-comment').innerHTML = addedComment;
-}
+	comments.innerHTML = '';
+	render(comments, array);
+});
 
-function checkSpam(str) {
-	if (str.includes('xxx')) {
-		return str.replaceAll('xxx', '***');
-	} else {
-		return str;
+function render(parentNode, data) {
+	for (let i = 0; i < data.length; i++) {
+		let item = data[i];
+
+		const filteredWords = ['viagra', 'xxx'];
+		let filteredText = item;
+		for (let word of filteredWords) {
+			let regexp = new RegExp(word, 'ig');
+			filteredText = filteredText.replace(regexp, '***');
+		}
+
+		let node = document.createElement('div');
+		node.classList.add('comment');
+		node.textContent = filteredText;
+
+		const deleteBtn = document.createElement('button');
+		deleteBtn.classList.add('del__btn');
+		deleteBtn.textContent = 'Delete';
+
+		deleteBtn.addEventListener('click', () => {
+			node.remove();
+			data.splice(i, 1);
+		});
+
+		parentNode.append(node);
+		node.append(deleteBtn);
 	}
 }
