@@ -1,19 +1,69 @@
 const button = document.querySelector('button');
 const comments = document.querySelector('.comments');
+const input = document.querySelector('input');
 const textarea = document.querySelector('textarea');
+const img = document.querySelector('img');
 
-let array = [];
+const array = [];
 
-button.addEventListener('click', () => {
-	let text = textarea.value;
-	textarea.value = '';
+// изъятие данных из localStorage при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+	if (localStorage.getItem('userNickname') !== null) {
+		input.value = localStorage.getItem('userNickname');
+	}
 
-	array.push(text);
+	if(localStorage.getItem('userPic') !== null) {
+		img.setAttribute('src', 'https://img.freepik.com/premium-vector/astronaut-standing-with-retro-background_56972-289.jpg?w=740');
+	}
 
-	comments.innerHTML = '';
+	if (localStorage.getItem('userComments') !== null) {
+		const previousComments = JSON.parse(localStorage.getItem('userComments'));
+
+		for (let i = 0; i < previousComments.length; i++) {
+			array.push(previousComments[i]);
+		}
+	}
+
 	render(comments, array);
 });
 
+// функция создания аватарки
+button.addEventListener('click', () => {
+	let userAva = img;
+	userAva.setAttribute('src', 'https://img.freepik.com/premium-vector/astronaut-standing-with-retro-background_56972-289.jpg?w=740');
+}, {
+	once: true
+});
+
+button.addEventListener('click', () => {
+	const userName = input.value;
+	const text = textarea.value;
+
+	// сохранение имени пользователя
+	if (localStorage.getItem('userNickname') === null) {
+		localStorage.setItem('userNickname', userName);
+	}
+
+	// сохранение аватарки
+	if (localStorage.getItem('userPic') === null) {
+		localStorage.setItem('userPic', 'https://img.freepik.com/premium-vector/astronaut-standing-with-retro-background_56972-289.jpg?w=740');
+	}
+
+	if (text !== '') {
+		array.push(text);
+	}
+
+	// сохранение комментариев пользователя
+	const localComments = JSON.stringify(array);
+	localStorage.setItem('userComments', localComments);
+
+	textarea.value = '';
+	comments.innerHTML = '';
+
+	render(comments, array);
+});
+
+// фукнция добавления комментариев
 function render(parentNode, data) {
 	for (let i = 0; i < data.length; i++) {
 		let item = data[i];
