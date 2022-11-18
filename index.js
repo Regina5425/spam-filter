@@ -6,7 +6,6 @@ const img = document.querySelector('img');
 
 const array = [];
 
-// изъятие данных из localStorage при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
 	if (localStorage.getItem('userNickname') !== null) {
 		input.value = localStorage.getItem('userNickname');
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	render(comments, array);
 });
 
-// функция создания аватарки
 button.addEventListener('click', () => {
 	let userAva = img;
 	userAva.setAttribute('src', 'https://img.freepik.com/premium-vector/astronaut-standing-with-retro-background_56972-289.jpg?w=740');
@@ -39,12 +37,10 @@ button.addEventListener('click', () => {
 	const userName = input.value;
 	const text = textarea.value;
 
-	// сохранение имени пользователя
 	if (localStorage.getItem('userNickname') === null) {
 		localStorage.setItem('userNickname', userName);
 	}
 
-	// сохранение аватарки
 	if (localStorage.getItem('userPic') === null) {
 		localStorage.setItem('userPic', 'https://img.freepik.com/premium-vector/astronaut-standing-with-retro-background_56972-289.jpg?w=740');
 	}
@@ -53,7 +49,6 @@ button.addEventListener('click', () => {
 		array.push(text);
 	}
 
-	// сохранение комментариев пользователя
 	const localComments = JSON.stringify(array);
 	localStorage.setItem('userComments', localComments);
 
@@ -63,7 +58,6 @@ button.addEventListener('click', () => {
 	render(comments, array);
 });
 
-// фукнция добавления комментариев
 function render(parentNode, data) {
 	for (let i = 0; i < data.length; i++) {
 		let item = data[i];
